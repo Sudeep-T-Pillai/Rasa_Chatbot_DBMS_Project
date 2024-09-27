@@ -1,0 +1,67 @@
+version: "3.1"
+
+rules:
+  - rule: Say goodbye anytime the user says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Say 'I am a bot' anytime the user challenges
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: handle_registration
+    steps:
+      - intent: user_registration
+      - action: action_register_user
+
+  - rule: handle_login
+    steps:
+      - intent: user_login
+      - action: action_login_user
+
+  - rule: handle_product_search
+    steps:
+      - intent: product_search
+      - action: action_search_product
+
+  - rule: handle_product_search_with_filters
+    steps:
+      - intent: product_search_with_filters
+      - action: action_search_product
+
+  - rule: handle_add_payment
+    steps:
+      - intent: payment_add
+      - action: action_add_payment
+
+  - rule: handle_delete_payment
+    steps:
+      - intent: payment_delete
+      - action: action_delete_payment
+
+  - rule: handle_place_order
+    steps:
+      - intent: place_order
+      - action: action_place_order
+
+  - rule: handle_cart_add
+    steps:
+      - intent: cart_add
+      - action: action_add_to_cart
+
+  - rule: handle_order_tracking
+    steps:
+      - intent: track_order
+      - action: action_track_order
+
+  - rule: handle_cod_check
+    steps:
+      - intent: cash_on_delivery_check
+      - action: action_check_cod
+
+  - rule: handle_check_delivery_location
+    steps:
+      - intent: check_delivery_location
+      - action: action_check_delivery

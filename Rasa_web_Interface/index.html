@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI - Your Intelligent Shopping Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <div class="container">
+        <div class="content">
+            <h1 id="the-ai-company" class="title">NexusAI</h1>
+            <h2 id="nexusai-description" class="description">
+                Experience the future of online shopping with NexusAI. Our cutting-edge AI assistant revolutionizes your e-commerce journey, providing personalized recommendations, instant support, and seamless transactions 24/7. Discover a new realm of convenience and efficiency in every purchase.
+            </h2>
+        </div>
+    </div>
+    
+    <div id="rasa-chat-widget" data-websocket-url="http://localhost:5005"></div>
+
+    <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
+    <script>
+        const chatbotIcon = document.querySelector('.chatbot-icon');
+        const backgroundOverlay = document.querySelector('.background-overlay');
+
+        chatbotIcon.addEventListener('click', () => {
+            backgroundOverlay.style.display = 'block';
+            const chatWidget = document.getElementById('rasa-chat-widget');
+            chatWidget.style.display = 'block';  // Ensure this div is visible
+        });
+    </script>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

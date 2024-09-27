@@ -1,0 +1,158 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - I am feeling very good
+      - I am great
+      - I am amazing
+      - I am going to save the world
+      - super stoked
+      - extremely good
+      - so so perfect
+      - so good
+      - so perfect
+
+  - intent: mood_unhappy
+    examples: |
+      - my day was horrible
+      - I am sad
+      - I don't feel very well
+      - I am disappointed
+      - super sad
+      - I'm so sad
+      - sad
+      - very sad
+      - unhappy
+      - not good
+      - not very good
+      - extremly sad
+      - so saad
+      - so sad
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+
+  - intent: user_registration
+    examples: |
+      - I want to register a new account
+      - Sign me up
+      - I need to create an account
+      - Register a new user
+
+  - intent: user_login
+    examples: |
+      - Log me into my account
+      - I want to sign in
+      - Log in
+      - Sign me in
+
+  - intent: product_search
+    examples: |
+      - I am looking for a laptop
+      - Search for smartphones
+      - Show me shoes
+      - I need to find a new TV
+
+  - intent: product_search_with_filters
+    examples: |
+      - Search for phones under 20k
+      - Show me laptops from Dell
+      - I want products with 5-star ratings
+      - Find shoes from Nike between 50-100 dollars
+
+  - intent: payment_add
+    examples: |
+      - Add a new payment method
+      - I want to set up a credit card for payment
+      - Add my debit card
+
+  - intent: payment_delete
+    examples: |
+      - Remove my existing payment method
+      - Delete my credit card info
+
+  - intent: place_order
+    examples: |
+      - Place my order
+      - I want to order this product
+      - Proceed with checkout
+
+  - intent: cart_add
+    examples: |
+      - Add this product to my cart
+      - I want to add this phone to the cart
+      - Add this to my shopping bag
+
+  - intent: track_order
+    examples: |
+      - Track my order
+      - Where is my package?
+      - Can you give me the order status?
+
+  - intent: cash_on_delivery_check
+    examples: |
+      - Can I pay cash on delivery?
+      - Is COD available for this product?
+
+  - intent: check_delivery_location
+    examples: |
+      - Is delivery available to my address?
+      - Can you deliver this to my location?

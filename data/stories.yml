@@ -1,0 +1,84 @@
+version: "3.1"
+
+stories:
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad path 1
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path 2
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: user_registration
+    steps:
+      - intent: user_registration
+      - action: action_register_user
+
+  - story: user_login
+    steps:
+      - intent: user_login
+      - action: action_login_user
+
+  - story: product_search
+    steps:
+      - intent: product_search
+      - action: action_search_product
+
+  - story: product_search_with_filters
+    steps:
+      - intent: product_search_with_filters
+      - action: action_search_product
+
+  - story: payment_add
+    steps:
+      - intent: payment_add
+      - action: action_add_payment
+
+  - story: payment_delete
+    steps:
+      - intent: payment_delete
+      - action: action_delete_payment
+
+  - story: place_order
+    steps:
+      - intent: place_order
+      - action: action_place_order
+
+  - story: cart_add
+    steps:
+      - intent: cart_add
+      - action: action_add_to_cart
+
+  - story: track_order
+    steps:
+      - intent: track_order
+      - action: action_track_order
+
+  - story: cash_on_delivery_check
+    steps:
+      - intent: cash_on_delivery_check
+      - action: action_check_cod
+
+  - story: check_delivery_location
+    steps:
+      - intent: check_delivery_location
+      - action: action_check_delivery

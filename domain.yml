@@ -1,0 +1,118 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - user_registration
+  - user_login
+  - product_search
+  - product_search_with_filters
+  - payment_add
+  - payment_delete
+  - place_order
+  - cart_add
+  - track_order
+  - cash_on_delivery_check
+  - check_delivery_location
+
+entities:
+  - product
+  - filters
+  - payment_method
+  - location
+  - order_status
+
+slots:
+  product:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: product
+  filters:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: filters
+  payment_method:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: payment_method
+  location:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: location
+  order_status:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: order_status
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.pinimg.com/originals/03/b3/5d/03b35dee978b30c21ec8e21d7d92bea1.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_product_search_results:
+    - text: "Here are the results for the product you're looking for."
+
+  utter_add_payment:
+    - text: "Your payment method has been successfully added."
+
+  utter_delete_payment:
+    - text: "Your payment method has been successfully deleted."
+
+  utter_place_order:
+    - text: "Your order has been placed!"
+
+  utter_track_order:
+    - text: "Here is the status of your order: {order_status}."
+
+  utter_cash_on_delivery_available:
+    - text: "Cash on Delivery is available."
+
+  utter_delivery_available:
+    - text: "Delivery is available to {location}."
+
+  utter_no_delivery:
+    - text: "Unfortunately, delivery is not available to {location}."
+
+  utter_no_cod:
+    - text: "Cash on Delivery is not available for this product."
+
+actions:
+  - action_register_user
+  - action_login_user
+  - action_search_product
+  - action_add_payment
+  - action_delete_payment
+  - action_place_order
+  - action_add_to_cart
+  - action_track_order
+  - action_check_cod
+  - action_check_delivery
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

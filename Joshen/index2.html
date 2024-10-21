@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Products</title>
+</head>
+<body>
+  <h1>Search for Products</h1>
+  <form id="searchForm">
+    <label for="searchQuery">Product Name:</label><br>
+    <input type="text" id="searchQuery" required><br><br>
+
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="searchResults"></div>
+
+  <script>
+    // JavaScript code goes here (as shown above)
+    const POCKETBASE_URL = "http://23.21.225.129:8090/api/collections/j04xkqpu71k801f/records"; // Your products collection ID
+const ADMIN_TOKEN = "1209600"; // Your admin token
+    async function searchProducts(searchQuery) {
+        try {
+          // Use the filter to search for products by name (or another field)
+          const response = await fetch(`${POCKETBASE_URL}?filter=(name~"${searchQuery}")`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${ADMIN_TOKEN}`,  // Authorization token
+            }
+          });
+      
+          const responseData = await response.json();
+      
+          if (response.ok) {
+            console.log("Search results:", responseData);
+            displaySearchResults(responseData.items); // Display the search results on the page
+          } else {
+            console.error("Search failed:", responseData.message);
+            alert(`Search failed: ${responseData.message}`);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred during product search.");
+        }
+      }
+      
+      // Display search results in the DOM
+      function displaySearchResults(items) {
+        const resultsDiv = document.getElementById('searchResults');
+        resultsDiv.innerHTML = ''; // Clear previous results
+      
+        if (items.length === 0) {
+          resultsDiv.innerHTML = '<p>No products found.</p>';
+        } else {
+          items.forEach(item => {
+            const productDiv = document.createElement('div');
+            productDiv.innerHTML = `
+              <h3>${item.name}</h3>
+              <p>Price: ${item.price}</p>
+              <p>Description: ${item.description}</p>
+            `;
+            resultsDiv.appendChild(productDiv);
+          });
+        }
+      }
+      
+      // Handle form submission
+      document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+      
+        const searchQuery = document.getElementById('searchQuery').value;
+      
+        // Call the search function with the query
+        searchProducts(searchQuery);
+      });
+  </script>
+</body>
+</html>

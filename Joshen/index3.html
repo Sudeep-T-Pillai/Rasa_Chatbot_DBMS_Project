@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add to Wishlist</title>
+</head>
+<body>
+  <h1>Product Wishlist</h1>
+  <form id="wishlistForm">
+    <label for="userId">User ID:</label><br>
+    <input type="text" id="userId" required><br><br>
+
+    <label for="productId">Product ID:</label><br>
+    <input type="text" id="productId" required><br><br>
+
+    <button type="submit">Add to Wishlist</button>
+  </form>
+
+  <script>
+    const POCKETBASE_URL = "http://23.21.225.129:8090/api/collections/0wuzmaqhmil5u8m/records";
+    const ADMIN_TOKEN = "1209600"; // Adjust this if needed
+
+    async function addToWishlist(userId, productId) {
+      const dateAdded = new Date().toISOString(); // Capture the current date and time
+      
+      try {
+        const response = await fetch(POCKETBASE_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${ADMIN_TOKEN}`,  // Authorization token
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            product_id: productId,
+            date_added: dateAdded
+          })
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("Product added to wishlist:", responseData);
+          alert("Product successfully added to your wishlist!");
+        } else {
+          console.error("Failed to add product to wishlist:", responseData.message);
+          alert(`Failed to add product to wishlist: ${responseData.message}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while adding the product to the wishlist.");
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('wishlistForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      const userId = document.getElementById('userId').value;
+      const productId = document.getElementById('productId').value;
+
+      // Call the addToWishlist function with form data
+      addToWishlist(userId, productId);
+    });
+  </script>
+</body>
+</html>

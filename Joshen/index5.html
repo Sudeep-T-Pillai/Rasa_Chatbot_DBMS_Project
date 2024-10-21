@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display User Orders</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    #ordersContainer {
+      display: none; /* Hide the orders table initially */
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Orders</h1>
+  <form id="userIdForm">
+    <label for="userId">User ID:</label><br>
+    <input type="text" id="userId" required><br><br>
+    <button type="submit">Fetch Orders</button>
+  </form>
+
+  <div id="ordersContainer">
+    <h2>Order Details</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Order Date</th>
+          <th>Quantity</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="ordersTableBody">
+        <!-- Orders will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const POCKETBASE_URL = "http://23.21.225.129:8090/api/collections/1e7j1mj79e2h539/records"; // Orders tracking collection ID
+    const ADMIN_TOKEN = "1209600"; // Your admin token
+
+    async function fetchUserOrders(userId) {
+      try {
+        const response = await fetch(`${POCKETBASE_URL}?filter=user_id="${userId}"`, { // Fetch orders based on user_id
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${ADMIN_TOKEN}`,  // Authorization token
+          }
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          const orders = responseData.items; // Assuming responseData.items contains the orders
+
+          const ordersTableBody = document.getElementById('ordersTableBody');
+          ordersTableBody.innerHTML = ''; // Clear existing orders
+
+          // Populate the table with orders
+          orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${new Date(order.order_date).toLocaleString()}</td>
+              <td>${order.quantity}</td>
+              <td>${order.status}</td>
+            `;
+            ordersTableBody.appendChild(row);
+          });
+
+          // Show the orders container
+          document.getElementById('ordersContainer').style.display = 'block';
+        } else {
+          console.error("Failed to fetch orders:", responseData.message);
+          alert(`Failed to fetch orders: ${responseData.message}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while fetching orders.");
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('userIdForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      const userId = document.getElementById('userId').value;
+
+      // Fetch user orders with the provided user ID
+      fetchUserOrders(userId);
+    });
+  </script>
+</body>
+</html>

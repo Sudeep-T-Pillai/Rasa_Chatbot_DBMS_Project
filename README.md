@@ -42,5 +42,5 @@ Replace the expired keys in actions.py with your own if you wish to test the fun
 Usage
 Once the Rasa server is running, you can interact with the chatbot via the command line, or integrate it with a frontend.
 
-#License
+# License
 This project is licensed under the MIT License.

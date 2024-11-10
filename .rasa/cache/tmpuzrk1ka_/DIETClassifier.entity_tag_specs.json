@@ -1,0 +1,44 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-brand",
+      "2": "I-brand",
+      "3": "L-brand",
+      "4": "U-brand",
+      "5": "B-price",
+      "6": "I-price",
+      "7": "L-price",
+      "8": "U-price",
+      "9": "B-product",
+      "10": "I-product",
+      "11": "L-product",
+      "12": "U-product",
+      "13": "B-rating",
+      "14": "I-rating",
+      "15": "L-rating",
+      "16": "U-rating",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-brand": 1,
+      "I-brand": 2,
+      "L-brand": 3,
+      "U-brand": 4,
+      "B-price": 5,
+      "I-price": 6,
+      "L-price": 7,
+      "U-price": 8,
+      "B-product": 9,
+      "I-product": 10,
+      "L-product": 11,
+      "U-product": 12,
+      "B-rating": 13,
+      "I-rating": 14,
+      "L-rating": 15,
+      "U-rating": 16,
+      "O": 0
+    },
+    "num_tags": 17
+  }
+]

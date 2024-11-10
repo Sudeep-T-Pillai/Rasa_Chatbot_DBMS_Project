@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-overlay"></div>
+    <div class="background-overlay" style="display: none;"></div>
 
     <div class="container">
         <div class="content">
@@ -16,6 +16,71 @@
             <h2 id="nexusai-description" class="description">
                 Experience the future of online shopping with NexusAI. Our cutting-edge AI assistant revolutionizes your e-commerce journey, providing personalized recommendations, instant support, and seamless transactions 24/7. Discover a new realm of convenience and efficiency in every purchase.
             </h2>
+            <form id="userForm" enctype="multipart/form-data" onsubmit="submitForm(event)">
+                <label for="Firstname">First Name:</label><br>
+                <input type="text" id="Firstname" name="Firstname" required><br><br>
+            
+                <label for="Lastname">Last Name:</label><br>
+                <input type="text" id="Lastname" name="Lastname" required><br><br>
+
+                <label for="email id">Email ID:</label><br>
+                <input type="text" id="email" name="email" required><br><br>
+            
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+            
+                <label for="passwordConfirm">Confirm Password:</label><br>
+                <input type="password" id="passwordConfirm" name="passwordConfirm" required><br><br>
+            
+                <label for="avatar">Avatar (Image):</label><br>
+                <input type="file" id="avatar" name="avatar"><br><br>
+            
+                <label for="address">Address:</label><br>
+                <input type="text" id="address" name="address"><br><br>
+            
+                <label for="PreferredPaymentMethod">Preferred Payment Method:</label><br>
+                <input type="text" id="PreferredPaymentMethod" name="PreferredPaymentMethod"><br><br>
+            
+                <button type="submit">Create User</button>
+              </form>
+            
+              <script>
+                const POCKETBASE_URL = "http://23.21.225.129:8090/api/collections/_pb_users_auth_/records";
+                const ADMIN_TOKEN = "1209600"; // Admin token for authentication
+
+                async function createUser(formData) {
+                  try {
+                    const response = await fetch(POCKETBASE_URL, {
+                      method: 'POST',
+                      headers: {
+                        'Authorization': `Bearer ${ADMIN_TOKEN}`
+                      },
+                      body: formData // Sending FormData which can handle files and passwords
+                    });
+            
+                    const responseText = await response.text(); // Get the response text for debugging
+            
+                    if (response.ok) {
+                      const data = JSON.parse(responseText);
+                      console.log("User created:", data);
+                      alert("User created successfully!");
+                    } else {
+                      console.error("Failed to create user:", response.statusText, responseText);
+                      alert(`Failed to create user. Response: ${responseText}`);
+                    }
+                  } catch (error) {
+                    console.error("Error:", error);
+                    alert("An error occurred.");
+                  }
+                }
+
+                function submitForm(event) {
+                  event.preventDefault();
+                  const formElement = document.getElementById('userForm');
+                  const formData = new FormData(formElement);
+                  createUser(formData);
+                }
+              </script>
         </div>
     </div>
     
@@ -23,17 +88,13 @@
 
     <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
     <script>
-        const chatbotIcon = document.querySelector('.chatbot-icon');
         const backgroundOverlay = document.querySelector('.background-overlay');
+        const chatWidget = document.getElementById('rasa-chat-widget');
 
-        chatbotIcon.addEventListener('click', () => {
+        document.querySelector('.chatbot-icon').addEventListener('click', () => {
             backgroundOverlay.style.display = 'block';
-            const chatWidget = document.getElementById('rasa-chat-widget');
-            chatWidget.style.display = 'block';  // Ensure this div is visible
+            chatWidget.style.display = 'block';
         });
     </script>
-    
-
-    <script src="script.js"></script>
 </body>
 </html>

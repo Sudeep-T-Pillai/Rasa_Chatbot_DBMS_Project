@@ -1,6 +1,21 @@
 version: "3.1"
 
 nlu:
+  - intent: view_list_n
+    examples: |
+      - Show me the [3](list_n) in the list
+      - choose [2](list_n) in the list 
+      - select [4](list_n) in the list
+      - [1](list_n) in the list 
+
+  - intent: view_list
+    examples: |
+      - Show me the list
+      - show me the view list
+      - display the list
+      - list display
+      - view the list 
+      
   - intent: greet
     examples: |
       - hey
@@ -106,10 +121,22 @@ nlu:
 
   - intent: product_search
     examples: |
-      - I am looking for a laptop
-      - Search for smartphones
-      - Show me shoes
-      - I need to find a new TV
+      - I am looking for a [laptop](product)
+      - Search for [smartphones](product)
+      - Show me [shoes](product)
+      - I need to find a new [TV](product)
+      - I need a [soap](product)
+      - I need a [bucket](product)
+      - I Need [Magnesium](product)
+      - I Need [Uranium](product)
+      - I need [ticket](product)
+      - I need [tickets](product)
+      - I need [Shoes](product)
+      - I need [Brush](product)
+      - show me [brush](product)
+      - show me [Grocery](product)
+      - [toothpaste](product)
+      - [kitchen](product)
 
   - intent: product_search_with_filters
     examples: |
@@ -131,15 +158,23 @@ nlu:
 
   - intent: place_order
     examples: |
-      - Place my order
-      - I want to order this product
+      - Place my order 
+      - I want to order [this](product_cart) product
       - Proceed with checkout
+      - Place order for cart item [2](product_cart)
+      - place order 
+      - continue with cart item [4](product_cart)
+      - continue to place my order
+      - goin with [4](product_cart) in my cart
+      - place order for my cart products
+      - continue with [3](product_cart) 
 
   - intent: cart_add
     examples: |
-      - Add this product to my cart
-      - I want to add this phone to the cart
-      - Add this to my shopping bag
+      - Add [3](list_n) product to my cart
+      - I want to add [this](list_n) phone to the cart
+      - Add [this](list_n) to my shopping bag
+      - Add [1](list_n) to my cart
 
   - intent: track_order
     examples: |

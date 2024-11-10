@@ -19,6 +19,9 @@ intents:
   - track_order
   - cash_on_delivery_check
   - check_delivery_location
+  - view_list
+  - view_list_n
+  - view_cart
 
 entities:
   - product
@@ -26,8 +29,23 @@ entities:
   - payment_method
   - location
   - order_status
+  - list_n
+  - product_cart
+
 
 slots:
+  product_cart:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: product_cart
+  position:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: list_n
   product:
     type: text
     mappings:
@@ -112,6 +130,8 @@ actions:
   - action_track_order
   - action_check_cod
   - action_check_delivery
+  - action_view_list
+
 
 session_config:
   session_expiration_time: 60

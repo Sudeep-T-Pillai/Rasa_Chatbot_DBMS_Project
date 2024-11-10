@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PocketBase User Creator</title>
+</head>
+<body>
+  <h1>Create a PocketBase User</h1>
+  <form id="userForm" enctype="multipart/form-data">
+    <label for="firstname">First Name:</label><br>
+    <input type="text" id="firstname" name="firstname" required><br><br>
+
+    <label for="lastname">Last Name:</label><br>
+    <input type="text" id="lastname" name="lastname" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="passwordConfirm">Confirm Password:</label><br>
+    <input type="password" id="passwordConfirm" name="passwordConfirm" required><br><br>
+
+    <label for="avatar">Avatar (Image):</label><br>
+    <input type="file" id="avatar" name="avatar"><br><br>
+
+    <label for="address">Address:</label><br>
+    <input type="text" id="address" name="address"><br><br>
+
+    <label for="PreferredPaymentMethod">Preferred Payment Method:</label><br>
+    <input type="text" id="PreferredPaymentMethod" name="PreferredPaymentMethod"><br><br>
+
+    <button type="submit">Create User</button>
+  </form>
+
+  <script>
+    const POCKETBASE_URL = "http://23.21.225.129:8090/api/collections/_pb_users_auth_/records";
+    const ADMIN_TOKEN = "1209600"; // Admin token for authentication
+
+    async function createUser(formData) {
+      try {
+        const response = await fetch(POCKETBASE_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${ADMIN_TOKEN}`
+          },
+          body: formData // Sending FormData which can handle files and passwords
+        });
+
+        const responseText = await response.text(); // Get the response text for debugging
+
+        if (response.ok) {
+          const data = JSON.parse(responseText);
+          console.log("User created:", data);
+          alert("User created successfully!");
+        } else {
+          console.error("Failed to create user:", response.statusText, responseText);
+          alert(`Failed to create user. Response: ${responseText}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred.");
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Create a FormData object to handle file and other input fields
+      const formData = new FormData();
+      formData.append('Firstname', document.getElementById('firstname').value);
+      formData.append('Lastname', document.getElementById('lastname').value);
+      formData.append('password', document.getElementById('password').value);
+      formData.append('passwordConfirm', document.getElementById('passwordConfirm').value);
+
+      const avatarFile = document.getElementById('avatar').files[0];
+      if (avatarFile) {
+        formData.append('avatar', avatarFile); // Add avatar file if selected
+      }
+      
+      formData.append('address', document.getElementById('address').value);
+      formData.append('PreferredPaymentMethod', document.getElementById('PreferredPaymentMethod').value);
+
+      // Call the function to create a new user
+      createUser(formData);
+    });
+  </script>
+</body>
+</html>

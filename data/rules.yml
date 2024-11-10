@@ -65,3 +65,15 @@ rules:
     steps:
       - intent: check_delivery_location
       - action: action_check_delivery
+
+  - rule: view_list_dev
+    steps:
+      - intent: view_list
+      - action: action_view_list
+
+  - rule: view_list_num
+    steps:
+      - intent: view_list_n
+      - action: action_view_list
+
+   

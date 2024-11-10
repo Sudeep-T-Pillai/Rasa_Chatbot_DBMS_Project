@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add to Cart</title>
+</head>
+<body>
+  <h1>Add Product to Cart</h1>
+  <form id="cartForm">
+    <label for="userId">User ID:</label><br>
+    <input type="text" id="userId" required><br><br>
+
+    <label for="productId">Product ID:</label><br>
+    <input type="text" id="productId" required><br><br>
+
+    <label for="quantity">Quantity:</label><br>
+    <input type="number" id="quantity" required><br><br>
+
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <script>
+    const POCKETBASE_URL = "http://23.21.225.129:8090/api/collections/syuvkk4hwnua81q/records";
+    const ADMIN_TOKEN = "1209600"; // Your admin token
+
+    async function addToCart(userId, productId, quantity) {
+      const dateAdded = new Date().toISOString(); // Capture the current date and time
+
+      try {
+        const response = await fetch(POCKETBASE_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${ADMIN_TOKEN}`,  // Authorization token
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            product_id: productId,
+            quantity: quantity,
+            date_added: dateAdded
+          })
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("Product added to cart:", responseData);
+          alert("Product successfully added to your cart!");
+        } else {
+          console.error("Failed to add product to cart:", responseData.message);
+          alert(`Failed to add product to cart: ${responseData.message}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while adding the product to the cart.");
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('cartForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      const userId = document.getElementById('userId').value;
+      const productId = document.getElementById('productId').value;
+      const quantity = document.getElementById('quantity').value;
+
+      // Call the addToCart function with form data
+      addToCart(userId, productId, quantity);
+    });
+  </script>
+</body>
+</html>
